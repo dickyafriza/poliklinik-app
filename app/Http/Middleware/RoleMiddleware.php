@@ -14,22 +14,15 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    // public function handle(Request $request, Closure $next, $role): Response
-    // {
-    //     $user = Auth::user();
+    public function handle(Request $request, Closure $next, $role): Response
+    {
+        $user = Auth::user();
     
-    //     if (!$user || $user->role !== $role) {
-    //         return response('Unauthorized.', 403);
-    //     }
+        if (!$user || $user->role !== $role) {
+            return response('Unauthorized.', 403);
+        }
     
-    //     return $next($request);
-    // }
-    public function handle($request, Closure $next, $role)
-{
-    if ($request->user()->role != $role) {
-        return redirect('/');
+        return $next($request);
     }
-    return $next($request);
-}
 }
 //middleware untuk mengecek role user apakah sesuai dengan yang diijinkan atau tidak
