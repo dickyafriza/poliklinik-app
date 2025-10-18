@@ -9,34 +9,43 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function showlogin() //hanya untuk menampilkan view
+    // Tampilkan halaman login
+    public function showlogin()
     {
         return view('auth.login');
     }
 
-    public function login(Request $request) //untuk proses autentikasi mengambil data dari form login berupa email dan password
+    // Proses login
+    public function login(Request $request)
     { 
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-           $user = Auth::user();
-           
-           if($user->role=='admin'){
-            return redirect()->route('admin.dashboard');
-              } elseif($user->role=='dokter'){
+            $user = Auth::user();
+
+            if ($user->role == 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->role == 'dokter') {
                 return redirect()->route('dokter.dashboard');
-              } else{
+            } else {
                 return redirect()->route('pasien.dashboard');
-              }
+            }
         }
-        return back('login')->withErrors(['email' => 'Email atau password salah.']);
+
+        // 🔴 Perbaikan bagian ini:
+        // Sebelumnya: return back('login')->withErrors([...])
+        // Salah, karena back() tidak menerima parameter string ('login')
+        // Yang benar:
+        return back()->with('error', 'Email atau password salah!');
     }
-    
+
+    // Tampilkan halaman register
     public function showregister()
     {
         return view('auth.register');
     }
 
+    // Proses register
     public function register(Request $request)
     {
         $request->validate([
@@ -47,6 +56,7 @@ class AuthController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'=> ['required', 'confirmed'],
         ]);
+
         User::create([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
@@ -56,14 +66,14 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'pasien',
         ]);
-        return redirect()->route('login');
-        // ->with('success', 'Registrasi berhasil. Silakan login.')
+
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
+    // Logout
     public function logout()
     {
         Auth::logout();
         return redirect()->route('login');
     }
 }
-

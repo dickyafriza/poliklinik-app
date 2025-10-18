@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
@@ -18,11 +18,13 @@ class RoleMiddleware
     {
         $user = Auth::user();
     
-        if (!$user || $user->role !== $role) {
-            return response('Unauthorized.', 403);
+        if ($user->role !== $role) {
+            return redirect()->route('Unauthorized.', 403);
         }
     
         return $next($request);
     }
 }
+
+
 //middleware untuk mengecek role user apakah sesuai dengan yang diijinkan atau tidak
