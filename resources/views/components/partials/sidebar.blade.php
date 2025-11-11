@@ -30,10 +30,9 @@
                             </p>
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a href="{{ route('polis.index') }}" class="nav-link {{ request()->routeIs('polis.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-hospital"></i>
                             <p>
                                 Manajemen Poli
                             </p>
@@ -41,7 +40,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('dokter.index') }}" class="nav-link {{ request()->routeIs('dokter.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-user-md"></i>
                             <p>
                                 Manajemen Dokter
                             </p>
@@ -49,7 +48,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('pasien.index') }}" class="nav-link {{ request()->routeIs('pasien.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-user-injured"></i>
                             <p>
                                 Manajemen Pasien
                             </p>
@@ -63,7 +62,6 @@
                             </p>
                         </a>
                     </li>
-                      
                 @endif
 
                 <!-- ROLE PASIEN -->
@@ -73,6 +71,14 @@
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
                                 Dashboard Pasien
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pasien.daftar') }}" class="nav-link {{ request()->routeIs('pasien.daftar') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-hospital-user"></i>
+                            <p>
+                                Poli
                             </p>
                         </a>
                     </li>
@@ -88,7 +94,14 @@
                             </p>
                         </a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a href="{{ route('jadwal-periksa.index') }}" class="nav-link {{ request()->routeIs('jadwal-periksa.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-calendar-check"></i>
+                            <p>
+                                Jadwal Periksa
+                            </p>
+                        </a>
+                    </li>
                 @endif
 
                 <li class="nav-item ">

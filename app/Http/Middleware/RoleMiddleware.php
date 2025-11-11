@@ -18,9 +18,13 @@ class RoleMiddleware
     {
         $user = Auth::user();
     
-        if ($user->role !== $role) {
-            return redirect()->route('Unauthorized.', 403);
-        }
+        // if ($user->role !== $role) {
+        //     return redirect()->route('Unauthorized.', 403);
+      //  }
+        
+      if ($user->role !== $role) {
+        abort(403, 'Unauthorized');
+    }
     
         return $next($request);
     }
