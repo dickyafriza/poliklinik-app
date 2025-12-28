@@ -6,13 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ $title ?? 'Admin Dashboard' }}</title>
 
-   {{-- Vite (opsional, boleh dipakai) --}}
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+   {{-- Note: Tidak menggunakan @vite karena conflict dengan Bootstrap/AdminLTE --}}
+
 
    <!-- Font Awesome 5.15.4 (WAJIB untuk AdminLTE 3) -->
    <link rel="stylesheet"
          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-         integrity="sha512-dym6n4l6yM1u5p9Tf5L0kN5p7V0pW9T0R0Zl6Vx+X8+Y1Y0+5s0J7MZ1PzY2Hf5B8LJ9vYFZC5sZx1K9xg=="
+         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
          crossorigin="anonymous" referrerpolicy="no-referrer">
  
    <!-- Bootstrap 4.6 (AdminLTE 3 WAJIB ini) -->

@@ -13,6 +13,38 @@
 
                 <h1 class="mb-4">Data Obat</h1>
 
+                {{-- LOW STOCK ALERT --}}
+                @php
+                    $lowStockThreshold = config('app.low_stock_threshold', 10);
+                    $lowStockObats = $obats->filter(function($obat) use ($lowStockThreshold) {
+                        return $obat->stok <= $lowStockThreshold;
+                    });
+                @endphp
+
+                @if($lowStockObats->count() > 0)
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h5><i class="icon fas fa-exclamation-triangle"></i> Peringatan Stok Menipis!</h5>
+                        <p class="mb-2">Terdapat <strong>{{ $lowStockObats->count() }} obat</strong> dengan stok menipis (≤ {{ $lowStockThreshold }} unit):</p>
+                        <ul class="mb-0">
+                            @foreach($lowStockObats->take(5) as $obat)
+                                <li>
+                                    <strong>{{ $obat->nama_obat }}</strong> - 
+                                    <span class="badge badge-danger">{{ $obat->stok }} unit</span>
+                                    <a href="{{ route('obat.edit', $obat->id) }}" class="btn btn-xs btn-warning ml-2">
+                                        <i class="fas fa-edit"></i> Re-stock
+                                    </a>
+                                </li>
+                            @endforeach
+                            @if($lowStockObats->count() > 5)
+                                <li class="text-muted">... dan {{ $lowStockObats->count() - 5 }} obat lainnya</li>
+                            @endif
+                        </ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                 <a href="{{ route('obat.create') }}" class="btn btn-primary mb-3">
                     <i class="fas fa-plus"></i> Tambah Obat
                 </a>
@@ -36,7 +68,26 @@
                                     <td>{{ $obat->nama_obat }}</td>
                                     <td>{{ $obat->kemasan }}</td>
                                     <td>Rp {{ number_format($obat->harga, 0, ',', '.') }}</td>
-                                    <td>{{ $obat->stok }}</td>
+                                    <td>
+                                        @php
+                                            $lowThreshold = config('app.low_stock_threshold', 10);
+                                            $warningThreshold = $lowThreshold * 2;
+                                        @endphp
+                                        
+                                        @if($obat->stok <= $lowThreshold)
+                                            <span class="badge badge-danger">
+                                                <i class="fas fa-exclamation-triangle"></i> {{ $obat->stok }} unit
+                                            </span>
+                                        @elseif($obat->stok <= $warningThreshold)
+                                            <span class="badge badge-warning">
+                                                <i class="fas fa-exclamation-circle"></i> {{ $obat->stok }} unit
+                                            </span>
+                                        @else
+                                            <span class="badge badge-success">
+                                                <i class="fas fa-check-circle"></i> {{ $obat->stok }} unit
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('obat.edit', $obat->id) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i> Edit
