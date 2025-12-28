@@ -24,12 +24,12 @@
                 @if($lowStockObats->count() > 0)
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <h5><i class="icon fas fa-exclamation-triangle"></i> Peringatan Stok Menipis!</h5>
-                        <p class="mb-2">Terdapat <strong>{{ $lowStockObats->count() }} obat</strong> dengan stok menipis (≤ {{ $lowStockThreshold }} unit):</p>
+                        <p class="mb-2">Terdapat <strong>{{ $lowStockObats->count() }} obat</strong> dengan stok menipis (≤ {{ $lowStockThreshold }} pcs):</p>
                         <ul class="mb-0">
                             @foreach($lowStockObats->take(5) as $obat)
                                 <li>
                                     <strong>{{ $obat->nama_obat }}</strong> - 
-                                    <span class="badge badge-danger">{{ $obat->stok }} unit</span>
+                                    <span class="badge badge-danger">{{ $obat->stok }} pcs</span>
                                     <a href="{{ route('obat.edit', $obat->id) }}" class="btn btn-xs btn-warning ml-2">
                                         <i class="fas fa-edit"></i> Re-stock
                                     </a>
@@ -76,15 +76,15 @@
                                         
                                         @if($obat->stok <= $lowThreshold)
                                             <span class="badge badge-danger">
-                                                <i class="fas fa-exclamation-triangle"></i> {{ $obat->stok }} unit
+                                                <i class="fas fa-exclamation-triangle"></i> {{ $obat->stok }} pcs
                                             </span>
                                         @elseif($obat->stok <= $warningThreshold)
                                             <span class="badge badge-warning">
-                                                <i class="fas fa-exclamation-circle"></i> {{ $obat->stok }} unit
+                                                <i class="fas fa-exclamation-circle"></i> {{ $obat->stok }} pcs
                                             </span>
                                         @else
                                             <span class="badge badge-success">
-                                                <i class="fas fa-check-circle"></i> {{ $obat->stok }} unit
+                                                <i class="fas fa-check-circle"></i> {{ $obat->stok }} pcs
                                             </span>
                                         @endif
                                     </td>

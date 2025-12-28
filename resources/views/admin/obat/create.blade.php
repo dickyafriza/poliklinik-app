@@ -51,7 +51,7 @@
                                             <input type="number" class="form-control @error('stok') is-invalid @enderror" 
                                                 id="stok" name="stok" value="{{ old('stok', 0) }}" min="0" required>
                                             <div class="input-group-append">
-                                                <span class="input-group-text">unit</span>
+                                                <span class="input-group-text">pcs</span>
                                             </div>
                                             @error('stok')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -59,7 +59,7 @@
                                         </div>
                                         <small class="form-text text-muted">
                                             <i class="fas fa-info-circle"></i> 
-                                            Stok ≤ 10 unit akan ditandai sebagai stok menipis
+                                            Stok ≤ 10 pcs akan ditandai sebagai stok menipis
                                         </small>
                                     </div>
                                 </div>

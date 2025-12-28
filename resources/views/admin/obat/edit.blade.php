@@ -56,12 +56,21 @@
                                 <label for="stok" class="form-label">Stok
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="number" name="stok" id="stok"
-                                    class="form-control @error('stok') is-invalid @enderror"
-                                    value="{{ old('stok', $obat->stok) }}" required min="0" step="1">
-                                @error('stok')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="input-group">
+                                    <input type="number" name="stok" id="stok"
+                                        class="form-control @error('stok') is-invalid @enderror"
+                                        value="{{ old('stok', $obat->stok) }}" required min="0" step="1">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">pcs</span>
+                                    </div>
+                                    @error('stok')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <small class="form-text text-muted">
+                                    <i class="fas fa-info-circle"></i> 
+                                    Stok ≤ 10 pcs akan ditandai sebagai stok menipis
+                                </small>
                             </div>
 
                             <div class="form-group mt-4">

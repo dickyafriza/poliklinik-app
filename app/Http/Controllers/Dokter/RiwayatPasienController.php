@@ -10,11 +10,19 @@ class RiwayatPasienController extends Controller
 {
     public function index()
     {
+        // Get logged-in doctor's ID
+        $dokterId = auth()->user()->id;
+        
         $riwayatPasien = Periksa::with([
             'daftarPoli.pasien',
             'daftarPoli.jadwalPeriksa.dokter',
             'detailPeriksas.obat'
-        ])->orderBy('tgl_periksa', 'desc')->get();
+        ])
+        ->whereHas('daftarPoli.jadwalPeriksa', function($query) use ($dokterId) {
+            $query->where('id_dokter', $dokterId);
+        })
+        ->orderBy('tgl_periksa', 'desc')
+        ->get();
 
         return view('dokter.riwayat-pasien.index', compact('riwayatPasien'));
     }

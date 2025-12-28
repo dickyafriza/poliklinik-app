@@ -32,7 +32,7 @@
                             <a href="{{ route('obat.edit', $obat->id) }}" class="dropdown-item">
                                 <i class="fas fa-pills mr-2"></i> {{ $obat->nama_obat }}
                                 <span class="float-right text-muted text-sm">
-                                    <span class="badge badge-danger">{{ $obat->stok }} unit</span>
+                                    <span class="badge badge-danger">{{ $obat->stok }} pcs</span>
                                 </span>
                             </a>
                             <div class="dropdown-divider"></div>

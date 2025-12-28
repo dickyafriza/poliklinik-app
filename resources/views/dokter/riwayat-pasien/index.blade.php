@@ -22,7 +22,7 @@
                                     @forelse($riwayatPasien as $riwayat)
                                         <tr>
                                             <td>{{ $riwayat->daftarPoli->no_antrian }}</td>
-                                            <td>{{ $riwayat->daftarPoli->pasien->name }}</td>
+                                            <td>{{ $riwayat->daftarPoli->pasien->nama ?? 'Tidak ada data' }}</td>
                                             <td>{{ $riwayat->daftarPoli->keluhan }}</td>
                                             <td>{{ \Carbon\Carbon::parse($riwayat->tgl_periksa)->format('d/m/Y') }}</td>
                                             <td>Rp {{ number_format($riwayat->biaya_periksa, 0, ',', '.') }}</td>
